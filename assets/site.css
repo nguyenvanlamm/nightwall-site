@@ -1,9 +1,10 @@
 /* Nightwall site — same palette and type as the game (direction B). Fonts are self-hosted
-   (OFL, see assets/fonts/*_ofl.txt) so the site makes no third-party requests. */
-@font-face { font-family: Jost; font-weight: 300; font-display: swap; src: url(fonts/jost_300.ttf) format("truetype"); }
-@font-face { font-family: Jost; font-weight: 400; font-display: swap; src: url(fonts/jost_400.ttf) format("truetype"); }
-@font-face { font-family: "Hanken Grotesk"; font-weight: 400; font-display: swap; src: url(fonts/hanken_grotesk_400.ttf) format("truetype"); }
-@font-face { font-family: "Hanken Grotesk"; font-weight: 600; font-display: swap; src: url(fonts/hanken_grotesk_600.ttf) format("truetype"); }
+   (OFL, see assets/fonts/*_ofl.txt) so the site makes no third-party requests. WOFF2 first (a third of
+   the TTF size), TTF kept as the fallback. */
+@font-face { font-family: Jost; font-weight: 300; font-display: swap; src: url(fonts/jost_300.woff2) format("woff2"), url(fonts/jost_300.ttf) format("truetype"); }
+@font-face { font-family: Jost; font-weight: 400; font-display: swap; src: url(fonts/jost_400.woff2) format("woff2"), url(fonts/jost_400.ttf) format("truetype"); }
+@font-face { font-family: "Hanken Grotesk"; font-weight: 400; font-display: swap; src: url(fonts/hanken_grotesk_400.woff2) format("woff2"), url(fonts/hanken_grotesk_400.ttf) format("truetype"); }
+@font-face { font-family: "Hanken Grotesk"; font-weight: 600; font-display: swap; src: url(fonts/hanken_grotesk_600.woff2) format("woff2"), url(fonts/hanken_grotesk_600.ttf) format("truetype"); }
 
 :root {
   --ink0: #040710; --ink1: #090e1a; --ink2: #121828; --ink3: #1d2439; --ink4: #2b354d;
@@ -24,11 +25,11 @@ a:hover { color: var(--amber); }
 
 /* top bar */
 .top { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand { display: flex; align-items: center; gap: 12px; min-height: 44px; text-decoration: none; }
 .brand img { width: 36px; height: 36px; border-radius: 9px; }
 .brand span { font-family: Jost; font-weight: 400; letter-spacing: 0.26em; font-size: 15px; }
-.top nav a { margin-left: 20px; font-size: 15px; color: var(--mist); text-decoration: none; }
-.top nav a:hover { color: var(--bone); }
+.top nav a { display: inline-block; padding: 12px 0; margin-left: 20px; font-size: 15px; color: var(--mist); text-decoration: none; }
+.top nav a:hover, .top nav a[aria-current="page"] { color: var(--bone); }
 
 /* hero: the gorge itself, lit from one side */
 .hero {
@@ -49,7 +50,14 @@ h1 {
   font-family: Jost; font-weight: 400; font-size: 17px; letter-spacing: 0.18em; text-transform: uppercase;
 }
 .cta:hover { color: var(--ink0); background: #fff; }
-.cta[aria-disabled="true"] { cursor: default; }
+/* Until the store link exists the CTA is a status, not a button: outlined, no hover, no pointer.
+   Drop aria-disabled and add the href at launch to get the filled button back. */
+.cta[aria-disabled="true"], .cta[aria-disabled="true"]:hover {
+  background: transparent; color: var(--bone); cursor: default;
+  box-shadow: inset 0 0 0 1px rgba(236, 231, 222, 0.32);
+}
+.notify { margin: 18px 0 0; font-size: 15px; color: var(--mist); }
+.notify a { display: inline-block; padding: 12px 0; }
 .trust { margin-top: 18px; font-size: 15px; color: var(--mist); }
 .trust b { color: var(--jade); font-weight: 600; }
 .phone { justify-self: center; width: min(320px, 80vw); border-radius: 40px; overflow: hidden; box-shadow: 0 0 0 1px var(--line), 0 0 0 7px #03050b, 0 30px 60px -10px #000; }
@@ -78,18 +86,38 @@ h2 { font-family: Jost; font-weight: 300; font-size: clamp(30px, 4vw, 40px); let
 .steps span { color: var(--mist); }
 
 .faq { max-width: 44em; margin-top: 28px; }
-.faq details { border-top: 1px solid var(--line); padding: 16px 0; }
+.faq details { border-top: 1px solid var(--line); }
 .faq details:last-child { border-bottom: 1px solid var(--line); }
-.faq summary { cursor: pointer; font-weight: 600; font-size: 18px; list-style: none; }
+.faq summary { cursor: pointer; font-weight: 600; font-size: 18px; list-style: none; padding: 16px 0; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; float: right; color: var(--mist); }
 .faq details[open] summary::after { content: "–"; }
-.faq p { color: var(--mist); margin: 10px 0 0; }
+.faq p { color: var(--mist); margin: 0 0 16px; }
+
+/* Daily Climb: copy on the left, four plain facts on the right, bordered like the feature cards. */
+.daily { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: start; }
+.facts { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 18px; }
+.facts li { border-left: 2px solid var(--ink4); padding-left: 16px; }
+.facts li:first-child { border-left-color: var(--amber); }
+.facts li:last-child { border-left-color: var(--jade); }
+.facts b { display: block; font-weight: 600; }
+.facts span { color: var(--mist); }
+
+/* Comparison: the Nightwall column carries bone text, the usual column stays mist. */
+.compare-wrap { overflow-x: auto; margin-top: 32px; }
+.compare { width: 100%; border-collapse: collapse; font-size: 16px; }
+.compare th, .compare td { text-align: left; vertical-align: top; padding: 14px 16px 14px 0; border-top: 1px solid var(--line); }
+.compare thead th { border-top: 0; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mist); }
+.compare thead th:last-child { color: var(--amber); }
+.compare tbody th { font-weight: 600; width: 22%; }
+.compare td { color: var(--mist); }
+.compare td:last-child { color: var(--bone); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .final { text-align: center; }
 .final .lede { margin-left: auto; margin-right: auto; }
 footer { padding: 32px 0 48px; color: var(--mist); font-size: 15px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
-footer a { color: var(--mist); }
+footer a { display: inline-block; padding: 12px 0; color: var(--mist); }
 
 /* document pages (privacy, support) */
 .doc { max-width: 680px; margin: 0 auto; padding: 24px 20px 64px; }
@@ -102,7 +130,16 @@ footer a { color: var(--mist); }
 @media (max-width: 820px) {
   .hero-grid { grid-template-columns: 1fr; padding-top: 24px; }
   .features, .steps, .shots { grid-template-columns: 1fr; }
-  .shots { max-width: 360px; margin-left: auto; margin-right: auto; }
+  .shots { max-width: 260px; margin-left: auto; margin-right: auto; }
+  .daily { grid-template-columns: 1fr; gap: 24px; }
+  .compare { font-size: 15px; }
+  .compare tbody th { width: auto; }
   section { padding: 56px 0; }
   .cta { letter-spacing: 0.08em; font-size: 15px; padding: 0 20px; }
+}
+
+/* At 320 px the wordmark and nav do not fit on one line: tighten the tracking and the gaps. */
+@media (max-width: 359px) {
+  .brand span { letter-spacing: 0.14em; }
+  .top nav a { margin-left: 14px; }
 }

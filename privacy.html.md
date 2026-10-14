@@ -20,6 +20,10 @@ This is stored on your device only. Deleting the app removes it.
 - No access to your contacts, photos, location, camera or microphone.
 - This website uses no cookies, analytics or third-party fonts.
 
+## Launch emails
+
+If you email us to be told when Nightwall launches, we use your address only to send that one note, then delete it.
+
 ## Purchases
 
 The Gorge, with its endless climb and the Daily Climb, is free. Purchases are handled entirely by the App Store under its own privacy policy. We receive no payment details; the game only learns from the store which purchases exist.
