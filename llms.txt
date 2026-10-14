@@ -1,0 +1,19 @@
+# Nightwall
+
+> Nightwall (on the App Store as "Nightwall: Stealth Ninja Climb") is a one-tap stealth ninja climbing game for iPhone (iOS 15 or later). Tap anywhere to leap from one cliff wall to the other, climb a narrow gorge at night, and stay out of the light: lanterns swing and light one wall at a time, and higher up a searchlight sweeps from side to side. Linger in the light and the eye opens: you are spotted. Coming soon to the App Store.
+
+- Gates every 300 meters: fall, and you can start again from any gate you have reached, up to gate 12; past it, the climb never ends. A stretch between two gates takes under a minute.
+- Smoke bombs hide you for 2.5 seconds, even in the light. When you are caught, one smoke bomb lets you vanish and keep climbing, once per climb. Each new gate earns a smoke bomb while you carry fewer than 9.
+- Daily Climb: one tower for everyone, every day, with no smoke bombs.
+- Free to play. Optional purchases: Full Tower (one-time) opens two more worlds, The Bell Pass and The Watchtowers; packs of 5 or 15 smoke bombs. Restore Purchases is in Settings on the home screen.
+- No ads, no account, no analytics or tracking. Progress is stored only on the device, and the game plays fully offline. The game is in English.
+
+## Pages
+
+- [Home](https://nguyenvanlamm.github.io/nightwall-site/index.html.md): what the game is, how it plays, screens and questions
+- [Support](https://nguyenvanlamm.github.io/nightwall-site/support.html.md): contact, how to play, purchases, refunds and progress
+- [Privacy Policy](https://nguyenvanlamm.github.io/nightwall-site/privacy.html.md): what the game stores on the device and what it never collects
+
+## Optional
+
+- [Website](https://nguyenvanlamm.github.io/nightwall-site/): the HTML landing page
